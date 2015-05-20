@@ -58,17 +58,17 @@ int main()
 	}
 	vector<string> branches;
 	//call execvp to run git branch
-	string file_name = "tempfile";
+	char file_name[7] = {'X','X','X','X','X','X',0}; 
 	int write_to;
 	char **argv = new char*[3];
 	argv[0] = const_cast<char*>("git");
 	argv[1] = const_cast<char*>("branch");
 	argv[2] = 0;
-	if(-1 == (write_to = open(file_name.c_str() , O_CREAT | O_WRONLY | O_APPEND | O_TRUNC, S_IRUSR | S_IWUSR)))
-	{
-		perror("There was an error with open(). ");
+	if(-1 == (write_to = mkstemp(file_name))) {
+		perror("There was an error with mkstemp(). ");
 		exit(1);
 	}
+
 	execfunction(argv, "git");
 	delete []argv;
 	if(-1 == close(write_to))
@@ -80,7 +80,7 @@ int main()
 		perror("There was an error with dup2(). ");
 	}
 	int read_from;
-	if(-1 == (read_from = open(file_name.c_str(), O_RDONLY)))
+	if(-1 == (read_from = open(file_name, O_RDONLY)))
 	{
 		perror("There was an error with open(). ");
 	}
@@ -116,7 +116,7 @@ int main()
 	}
 	argv = new char*[3];
 	argv[0] = const_cast<char*>("rm");
-	argv[1] = const_cast<char*>(file_name.c_str());
+	argv[1] = const_cast<char*>(file_name);
 	argv[2] = 0;
 	execfunction(argv, "rm");
 	delete []argv;
