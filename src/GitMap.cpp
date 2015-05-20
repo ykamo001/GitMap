@@ -11,6 +11,7 @@
 #include <fcntl.h>
 #include <cstdlib>
 #include <errno.h>
+#include <fstream>
 #include <sys/stat.h>
 #include <boost/algorithm/string/trim.hpp>
 #include <boost/algorithm/string.hpp>
@@ -58,17 +59,17 @@ int main()
 	}
 	vector<string> branches;
 	//call execvp to run git branch
-	string file_name = "tempfile";
+	char file_name[7] = {'X','X','X','X','X','X',0}; 
 	int write_to;
 	char **argv = new char*[3];
 	argv[0] = const_cast<char*>("git");
 	argv[1] = const_cast<char*>("branch");
 	argv[2] = 0;
-	if(-1 == (write_to = open(file_name.c_str() , O_CREAT | O_WRONLY | O_APPEND | O_TRUNC, S_IRUSR | S_IWUSR)))
-	{
-		perror("There was an error with open(). ");
+	if(-1 == (write_to = mkstemp(file_name))) {
+		perror("There was an error with mkstemp(). ");
 		exit(1);
 	}
+
 	execfunction(argv, "git");
 	delete []argv;
 	if(-1 == close(write_to))
@@ -79,47 +80,38 @@ int main()
 	{
 		perror("There was an error with dup2(). ");
 	}
-	int read_from;
-	if(-1 == (read_from = open(file_name.c_str(), O_RDONLY)))
+	string line;
+	ifstream myfile(file_name);
+	while(myfile.good())
 	{
-		perror("There was an error with open(). ");
+		getline(myfile, line);
+		branches.push_back(line);
 	}
-	int size;
-	char c[BUFSIZ];
-	if(-1 == (size = read(read_from, &c, BUFSIZ))) 
-	{
-		perror("There was an error with read(). ");
-	}
-	while(size > 0)
-	{
-		branches.push_back(string(c));
-		if(-1 == (size = read(read_from, &c, BUFSIZ))) 
-		{
-			perror("There was an error with read(). ");
-		}
-	}
-	if(-1 == close(read_from))
-	{
-		perror("There was an error with close(). ");
-	}
-	//take all branch names and put into vector
-	//for each branch name, call execvp git checkout branchname
-	string currBranch;
-	for(unsigned int i = 0; i < branches.size(); ++i)
-	{
-		if((branches.at(i)).at(0) == '*')
-		{
-			currBranch = (branches.at(i)).substr(2, (branches.at(i)).size()-3);
-		}
-		branches.at(i) = (branches.at(i)).substr(2, (branches.at(i)).size()-3);
-		cout << branches.at(i) << endl;
-	}
+	myfile.close();
 	argv = new char*[3];
 	argv[0] = const_cast<char*>("rm");
-	argv[1] = const_cast<char*>(file_name.c_str());
+	argv[1] = const_cast<char*>(file_name);
 	argv[2] = 0;
 	execfunction(argv, "rm");
 	delete []argv;
+	//take all branch names and put into vector
+	//for each branch name, call execvp git checkout branchname
+	string currBranch;
+	string temp;
+	for(unsigned int i = 0; i < branches.size()-1; ++i)
+	{
+		temp = branches.at(i);
+		if(temp.at(0) == '*')
+		{
+			currBranch = (temp).substr(2, temp.size()-2);
+			branches.at(i) = currBranch;
+		}
+		else
+		{
+			branches.at(i) = (temp).substr(2, temp.size()-2);
+		}
+		cout << branches.at(i) << endl;
+	}
 	//then open/create a file called branchname for whatever branch we are on
 	if(-1 == (savestdout = dup(1)))
 	{
