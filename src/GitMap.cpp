@@ -11,6 +11,7 @@
 #include <fcntl.h>
 #include <cstdlib>
 #include <errno.h>
+#include <fstream>
 #include <sys/stat.h>
 #include <boost/algorithm/string/trim.hpp>
 #include <boost/algorithm/string.hpp>
@@ -79,7 +80,7 @@ int main()
 	{
 		perror("There was an error with dup2(). ");
 	}
-	int read_from;
+	/*int read_from;
 	if(-1 == (read_from = open(file_name, O_RDONLY)))
 	{
 		perror("There was an error with open(). ");
@@ -101,17 +102,31 @@ int main()
 	if(-1 == close(read_from))
 	{
 		perror("There was an error with close(). ");
+	}*/
+	string line;
+	ifstream myfile(file_name);
+	while(myfile.good())
+	{
+		getline(myfile, line);
+		branches.push_back(line);
 	}
+	myfile.close();
 	//take all branch names and put into vector
 	//for each branch name, call execvp git checkout branchname
 	string currBranch;
+	string temp;
 	for(unsigned int i = 0; i < branches.size(); ++i)
 	{
-		if((branches.at(i)).at(0) == '*')
+		temp = branches.at(i);
+		if(temp.at(0) == '*')
 		{
-			currBranch = (branches.at(i)).substr(2, (branches.at(i)).size()-3);
+			currBranch = (temp).substr(2, temp.size()-2);
+			branches.at(i) = currBranch;
 		}
-		branches.at(i) = (branches.at(i)).substr(2, (branches.at(i)).size()-3);
+		else
+		{
+			branches.at(i) = (temp).substr(2, temp.size()-2);
+		}
 		cout << branches.at(i) << endl;
 	}
 	argv = new char*[3];
