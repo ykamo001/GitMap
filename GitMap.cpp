@@ -104,8 +104,13 @@ int main()
 	}
 	//take all branch names and put into vector
 	//for each branch name, call execvp git checkout branchname
+	string currBranch;
 	for(unsigned int i = 0; i < branches.size(); ++i)
 	{
+		if((branches.at(i)).at(0) == '*')
+		{
+			currBranch = (branches.at(i)).substr(2, (branches.at(i)).size()-3);
+		}
 		branches.at(i) = (branches.at(i)).substr(2, (branches.at(i)).size()-3);
 		cout << branches.at(i) << endl;
 	}
@@ -124,15 +129,20 @@ int main()
 	{
 		perror("There was an error with close(). ");
 	}
+	int changed = 0;
 	for(unsigned int i = 0; i < branches.size(); ++i)
 	{
-		argv = new char*[4];
-		argv[0] = const_cast<char*>("git");
-		argv[1] = const_cast<char*>("checkout");
-		argv[2] = const_cast<char*>((branches.at(i)).c_str());
-		argv[3] = 0;
-		execfunction(argv, "git");
-		delete []argv;
+		if(currBranch != branches.at(i))
+		{
+			argv = new char*[4];
+			argv[0] = const_cast<char*>("git");
+			argv[1] = const_cast<char*>("checkout");
+			argv[2] = const_cast<char*>((branches.at(i)).c_str());
+			argv[3] = 0;
+			execfunction(argv, "git");
+			delete []argv;
+			changed++;
+		}
 		string name = branches.at(i);
 		name += "Branch";
 		if(-1 == (write_to = open(name.c_str() , O_CREAT | O_WRONLY | O_APPEND | O_TRUNC, S_IRUSR | S_IWUSR)))
@@ -155,13 +165,16 @@ int main()
 	{
 		perror("There was an error with dup2(). ");
 	}
-	argv = new char*[4];
-	argv[0] = const_cast<char*>("git");
-	argv[1] = const_cast<char*>("checkout");
-	argv[2] = const_cast<char*>("master");
-	argv[3] = 0;
-	execfunction(argv, "git");
-	delete []argv;
+	if(changed > 0)
+	{
+		argv = new char*[4];
+		argv[0] = const_cast<char*>("git");
+		argv[1] = const_cast<char*>("checkout");
+		argv[2] = const_cast<char*>(currBranch.c_str());
+		argv[3] = 0;
+		execfunction(argv, "git");
+		delete []argv;
+	}
 	//then call execvp git log to have all the output go to file
 	//close file
 	return 0;
