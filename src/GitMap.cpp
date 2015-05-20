@@ -122,7 +122,7 @@ int main()
 		perror("There was an error with close(). ");
 	}
 	int changed = 0;
-	for(unsigned int i = 0; i < branches.size(); ++i)
+	for(unsigned int i = 0; i < branches.size()-1; ++i)
 	{
 		if(currBranch != branches.at(i))
 		{
