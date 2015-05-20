@@ -17,6 +17,7 @@
 
 using namespace std;
 using namespace boost;
+
 void execfunction(char **argv, string command)
 {
 	int pid = fork();
@@ -105,11 +106,8 @@ int main()
 	//for each branch name, call execvp git checkout branchname
 	for(unsigned int i = 0; i < branches.size(); ++i)
 	{
-		cout << branches.at(i);
-		if(i < branches.size()-1)
-		{
-			cout << endl;
-		}
+		branches.at(i) = (branches.at(i)).substr(2, (branches.at(i)).size()-3);
+		cout << branches.at(i) << endl;
 	}
 	argv = new char*[3];
 	argv[0] = const_cast<char*>("rm");
@@ -118,6 +116,9 @@ int main()
 	execfunction(argv, "rm");
 	delete []argv;
 	//then open/create a file called branchname for whatever branch we are on
+	for(unsigned int i = 0; i < branches.size(); ++i)
+	{
+	}
 	//then call execvp git log to have all the output go to file
 	//close file
 	//reopen stdout
