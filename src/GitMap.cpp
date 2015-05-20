@@ -19,7 +19,7 @@
 using namespace std;
 using namespace boost;
 
-void execfunction(char **argv, string command)
+void execfunction(string command, char **argv)
 {
 	int pid = fork();
 	if(-1 == pid)
@@ -70,7 +70,7 @@ int main()
 		exit(1);
 	}
 
-	execfunction(argv, "git");
+	execfunction("git", argv);
 	delete []argv;
 	if(-1 == close(write_to))
 	{
@@ -95,7 +95,7 @@ int main()
 	argv[0] = const_cast<char*>("rm");
 	argv[1] = const_cast<char*>(file_name);
 	argv[2] = 0;
-	execfunction(argv, "rm");
+	execfunction("rm", argv);
 	delete []argv;
 	//take all branch names and put into vector
 	//for each branch name, call execvp git checkout branchname
@@ -113,7 +113,6 @@ int main()
 		{
 			branches.at(i) = (temp).substr(2, temp.size()-2);
 		}
-		cout << branches.at(i) << endl;
 	}
 	//then open/create a file called branchname for whatever branch we are on
 	if(-1 == (savestdout = dup(1)))
@@ -134,7 +133,7 @@ int main()
 			argv[1] = const_cast<char*>("checkout");
 			argv[2] = const_cast<char*>((branches.at(i)).c_str());
 			argv[3] = 0;
-			execfunction(argv, "git");
+			execfunction("git", argv);
 			delete []argv;
 			changed++;
 		}
@@ -149,7 +148,7 @@ int main()
 		argv[0] = const_cast<char*>("git");
 		argv[1] = const_cast<char*>("log");
 		argv[2] = 0;
-		execfunction(argv, "git");
+		execfunction("git", argv);
 		delete []argv;
 		if(-1 == close(write_to))
 		{
@@ -167,7 +166,7 @@ int main()
 		argv[1] = const_cast<char*>("checkout");
 		argv[2] = const_cast<char*>(currBranch.c_str());
 		argv[3] = 0;
-		execfunction(argv, "git");
+		execfunction("git", argv);
 		delete []argv;
 	}
 	//then call execvp git log to have all the output go to file
