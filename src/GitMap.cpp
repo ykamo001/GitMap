@@ -80,29 +80,6 @@ int main()
 	{
 		perror("There was an error with dup2(). ");
 	}
-	/*int read_from;
-	if(-1 == (read_from = open(file_name, O_RDONLY)))
-	{
-		perror("There was an error with open(). ");
-	}
-	int size;
-	char c[BUFSIZ];
-	if(-1 == (size = read(read_from, &c, BUFSIZ))) 
-	{
-		perror("There was an error with read(). ");
-	}
-	while(size > 0)
-	{
-		branches.push_back(string(c));
-		if(-1 == (size = read(read_from, &c, BUFSIZ))) 
-		{
-			perror("There was an error with read(). ");
-		}
-	}
-	if(-1 == close(read_from))
-	{
-		perror("There was an error with close(). ");
-	}*/
 	string line;
 	ifstream myfile(file_name);
 	while(myfile.good())
@@ -111,11 +88,17 @@ int main()
 		branches.push_back(line);
 	}
 	myfile.close();
+	argv = new char*[3];
+	argv[0] = const_cast<char*>("rm");
+	argv[1] = const_cast<char*>(file_name);
+	argv[2] = 0;
+	execfunction(argv, "rm");
+	delete []argv;
 	//take all branch names and put into vector
 	//for each branch name, call execvp git checkout branchname
 	string currBranch;
 	string temp;
-	for(unsigned int i = 0; i < branches.size(); ++i)
+	for(unsigned int i = 0; i < branches.size()-1; ++i)
 	{
 		temp = branches.at(i);
 		if(temp.at(0) == '*')
@@ -129,12 +112,6 @@ int main()
 		}
 		cout << branches.at(i) << endl;
 	}
-	argv = new char*[3];
-	argv[0] = const_cast<char*>("rm");
-	argv[1] = const_cast<char*>(file_name);
-	argv[2] = 0;
-	execfunction(argv, "rm");
-	delete []argv;
 	//then open/create a file called branchname for whatever branch we are on
 	if(-1 == (savestdout = dup(1)))
 	{
