@@ -85,7 +85,10 @@ int main()
 	while(myfile.good())
 	{
 		getline(myfile, line);
-		branches.push_back(line);
+		if(line.find_first_not_of(' ') != string::npos)
+		{
+			branches.push_back(line);
+		}
 	}
 	myfile.close();
 	argv = new char*[3];
@@ -98,7 +101,7 @@ int main()
 	//for each branch name, call execvp git checkout branchname
 	string currBranch;
 	string temp;
-	for(unsigned int i = 0; i < branches.size()-1; ++i)
+	for(unsigned int i = 0; i < branches.size(); ++i)
 	{
 		temp = branches.at(i);
 		if(temp.at(0) == '*')
@@ -122,7 +125,7 @@ int main()
 		perror("There was an error with close(). ");
 	}
 	int changed = 0;
-	for(unsigned int i = 0; i < branches.size()-1; ++i)
+	for(unsigned int i = 0; i < branches.size(); ++i)
 	{
 		if(currBranch != branches.at(i))
 		{
