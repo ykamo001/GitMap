@@ -12,4 +12,3 @@ To download, run the command:
 ##Bugs and Issues
 * Does not create an image yet
 * Running the program will create a file named all the branch names
-* 
