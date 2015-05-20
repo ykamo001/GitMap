@@ -116,11 +116,53 @@ int main()
 	execfunction(argv, "rm");
 	delete []argv;
 	//then open/create a file called branchname for whatever branch we are on
+	if(-1 == (savestdout = dup(1)))
+	{
+		perror("There was an error with dup(). ");
+	}
+	if(-1 == close(1))
+	{
+		perror("There was an error with close(). ");
+	}
 	for(unsigned int i = 0; i < branches.size(); ++i)
 	{
+		argv = new char*[4];
+		argv[0] = const_cast<char*>("git");
+		argv[1] = const_cast<char*>("checkout");
+		argv[2] = const_cast<char*>((branches.at(i)).c_str());
+		argv[3] = 0;
+		execfunction(argv, "git");
+		delete []argv;
+		string name = branches.at(i);
+		name += "Branch";
+		if(-1 == (write_to = open(name.c_str() , O_CREAT | O_WRONLY | O_APPEND | O_TRUNC, S_IRUSR | S_IWUSR)))
+		{
+			perror("There was an error with open(). ");
+			exit(1);
+		}
+		argv = new char*[3];
+		argv[0] = const_cast<char*>("git");
+		argv[1] = const_cast<char*>("log");
+		argv[2] = 0;
+		execfunction(argv, "git");
+		delete []argv;
+		if(-1 == close(write_to))
+		{
+			perror("There was an error with close(). ");
+		}
 	}
+	if(-1 == dup2(savestdout, 1))
+	{
+		perror("There was an error with dup2(). ");
+	}
+	argv = new char*[4];
+	argv[0] = const_cast<char*>("git");
+	argv[1] = const_cast<char*>("checkout");
+	argv[2] = const_cast<char*>("master");
+	argv[3] = 0;
+	execfunction(argv, "git");
+	delete []argv;
 	//then call execvp git log to have all the output go to file
 	//close file
-	//reopen stdout
 	return 0;
 }
