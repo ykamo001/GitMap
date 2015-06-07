@@ -22,7 +22,10 @@ count=1
 while [ $count -le $branches ]
 do
 	sed -n ''$count'p' < $temp_file | awk '{print $1;}' > $temp_file3
-	cat $temp_file3
+	atBranch=`cat $temp_file3`
+	if [ "$atBranch" -ne "$currBranch" ]
+		#git checkout $atBranch
+		#git log > file
 	((count++))
 done
 rm $temp_file
