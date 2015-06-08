@@ -15,8 +15,6 @@ currBranch=`cat $temp_file2 | awk '{print $2;}'`
 #find how many times we need to loop, so how many branches there are
 branches=`wc -l $temp_file | awk '{print $1;}'`
 
-echo $branches
-echo $currBranch
 #this will let us traverse all our branches as if they were in a vector of string
 count=1
 changed=0
@@ -28,11 +26,9 @@ do
 	totalBranch=$atBranch$fileEnd
 	if [ "$atBranch" != "*" ]
 		then
-			echo "branch changed"
 			git checkout $atBranch
 			((changed++))
 		else
-			echo "not changed"
 			totalBranch=$currBranch$fileEnd
 	fi
 	git log > $totalBranch
@@ -48,5 +44,3 @@ rm $temp_file
 rm $temp_file2
 rm $temp_file3
 #cat masterBranch | sed "s/commit.*//g" | sed "s/Merge:.*//g" | sed 's/<.*>//g' | sed '/^\s*$/d'
-
-echo "Finished Script"
