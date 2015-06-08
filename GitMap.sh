@@ -19,20 +19,31 @@ echo $branches
 echo $currBranch
 #this will let us traverse all our branches as if they were in a vector of string
 count=1
+changed=0
+fileEnd="Branch"
 while [ $count -le $branches ]
 do
 	sed -n ''$count'p' < $temp_file | awk '{print $1;}' > $temp_file3
 	atBranch=`cat $temp_file3`
+	totalBranch=$atBranch$fileEnd
 	if [ "$atBranch" != "*" ]
-	then
-		echo "branch changed"
-		#git checkout $atBranch
-		#git log > file
-	else
-		echo "not changed"
+		then
+			echo "branch changed"
+			git checkout $atBranch
+			((changed++))
+		else
+			echo "not changed"
+			totalBranch=$currBranch$fileEnd
 	fi
+	git log > $totalBranch
 	((count++))
 done
+if [ $changed -gt 0 ]
+	then
+		git checkout $currBranch
+		lastFile=$currBranch$fileEnd
+		git log > $lastFile
+fi
 rm $temp_file
 rm $temp_file2
 rm $temp_file3
