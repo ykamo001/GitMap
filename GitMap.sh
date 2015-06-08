@@ -23,9 +23,14 @@ while [ $count -le $branches ]
 do
 	sed -n ''$count'p' < $temp_file | awk '{print $1;}' > $temp_file3
 	atBranch=`cat $temp_file3`
-	if [ "$atBranch" -ne "$currBranch" ]
+	if [ "$atBranch" != "*" ]
+	then
+		echo "branch changed"
 		#git checkout $atBranch
 		#git log > file
+	else
+		echo "not changed"
+	fi
 	((count++))
 done
 rm $temp_file
