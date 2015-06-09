@@ -7,10 +7,12 @@ Commit all changes to the repository before running this program. All uncommited
 
 ##Downloading and Running
 To download, run the command:    
-`$ git clone https://github.com/ykamo001/GitMap`  
-`$ cd GitMap`  
-`$ make`  
-`$ bin/GitMap PathToYourGitRepo` 
+```
+$ git clone https://github.com/ykamo001/GitMap  
+$ cd GitMap  
+$ make  
+$ bin/GitMap PathToYourGitRepo 
+```
 
 ##Bugs and Issues
 * Does not create an image yet
