@@ -18,29 +18,31 @@ branches=`wc -l $temp_file | awk '{print $1;}'`
 #this will let us traverse all our branches as if they were in a vector of string
 count=1
 changed=0
+fileEnd2="Branch2"
 fileEnd="Branch"
 while [ $count -le $branches ]
 do
 	sed -n ''$count'p' < $temp_file | awk '{print $1;}' > $temp_file3
 	atBranch=`cat $temp_file3`
+	totalBranch2=$atBranch$fileEnd2
 	totalBranch=$atBranch$fileEnd
 	if [ "$atBranch" != "*" ]
 		then
 			git checkout $atBranch
 			((changed++))
 		else
+			totalBranch2=$currBranch$fileEnd2
 			totalBranch=$currBranch$fileEnd
 	fi
-	git log > $totalBranch
+	git log > $totalBranch2
+	cat $totalBranch2 | sed "s/commit.*//g" | sed "s/Merge:.*//g" | sed 's/<.*>//g' | sed '/^\s*$/d' > $totalBranch
+	rm $totalBranch2
 	((count++))
 done
 if [ $changed -gt 0 ]
 	then
 		git checkout $currBranch
-		lastFile=$currBranch$fileEnd
-		git log > $lastFile
 fi
 rm $temp_file
 rm $temp_file2
 rm $temp_file3
-#cat masterBranch | sed "s/commit.*//g" | sed "s/Merge:.*//g" | sed 's/<.*>//g' | sed '/^\s*$/d'
