@@ -54,6 +54,7 @@ do
 	git log > $totalBranch2
 	cat $totalBranch2 | sed "s/commit.*//g" | sed "s/Merge:.*//g" | sed 's/<.*>//g' | sed 's/-0700//g' | sed '/^\s*$/d' > tempDir\/$totalBranch
 	rm $totalBranch2
+	arrowFile=`wc -l tempDir\/$totalBranch | awk '{print $1;}'`
 	((count++))
 done
 if [ $changed -gt 0 ]
