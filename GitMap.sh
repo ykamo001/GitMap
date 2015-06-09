@@ -1,4 +1,4 @@
-#! /bin/bash/
+#!/bin/bash/
 
 #Beginning comment
 path=$1
@@ -13,9 +13,17 @@ fi
 temp_file="$(mktemp)"
 temp_file2="$(mktemp)"
 temp_file3="$(mktemp)"
+#temp_file4 for tempDir
 
 #create file to get all branch names
 git branch > $temp_file	
+
+#create folder to store branch files
+if [ -d tempDir ]
+	then
+		rm -rf tempDir
+fi
+mkdir tempDir
 
 #filter out the branch we are currently in
 cat $temp_file | grep '\*' > $temp_file2
@@ -44,7 +52,7 @@ do
 			totalBranch=$currBranch$fileEnd
 	fi
 	git log > $totalBranch2
-	cat $totalBranch2 | sed "s/commit.*//g" | sed "s/Merge:.*//g" | sed 's/<.*>//g' | sed 's/-0700//g' | sed '/^\s*$/d' > $totalBranch
+	cat $totalBranch2 | sed "s/commit.*//g" | sed "s/Merge:.*//g" | sed 's/<.*>//g' | sed 's/-0700//g' | sed '/^\s*$/d' > tempDir\/$totalBranch
 	rm $totalBranch2
 	((count++))
 done
