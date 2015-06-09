@@ -44,7 +44,7 @@ do
 			totalBranch=$currBranch$fileEnd
 	fi
 	git log > $totalBranch2
-	cat $totalBranch2 | sed "s/commit.*//g" | sed "s/Merge:.*//g" | sed 's/<.*>//g' | sed '/^\s*$/d' > $totalBranch
+	cat $totalBranch2 | sed "s/commit.*//g" | sed "s/Merge:.*//g" | sed 's/<.*>//g' | sed 's/-0700//g' | sed '/^\s*$/d' > $totalBranch
 	rm $totalBranch2
 	((count++))
 done
