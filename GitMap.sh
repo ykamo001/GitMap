@@ -1,5 +1,8 @@
 #! /bin/bash/
 
+path=$1
+currDir=`pwd`
+cd $path
 #make temporary files that will assure us that no file of that name exists
 temp_file="$(mktemp)"
 temp_file2="$(mktemp)"
@@ -46,3 +49,5 @@ fi
 rm $temp_file
 rm $temp_file2
 rm $temp_file3
+
+cd $currDir
