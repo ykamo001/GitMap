@@ -1,5 +1,6 @@
 #! /bin/bash/
 
+#Beginning comment
 path=$1
 currDir=`pwd`
 if [ -z "$path" ]
