@@ -2,7 +2,12 @@
 
 path=$1
 currDir=`pwd`
-cd $path
+if [ -z "$path" ]
+	then
+		echo "Path was not specified. Script will execute in current directory"
+	else
+		cd $path
+fi
 #make temporary files that will assure us that no file of that name exists
 temp_file="$(mktemp)"
 temp_file2="$(mktemp)"
