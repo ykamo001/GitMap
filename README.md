@@ -35,7 +35,7 @@ The resulting file will be stored in the directory that was passed into the comm
 
 
 ##Warning
-Commit all changes to the repository before running this program. 
+Before running this program on a git repository, commit all changes to the repository. 
 All uncommited changes will be reverted to the last commit.
 
 ##Downloading and Running
@@ -51,12 +51,11 @@ $ . PathToGitMap/GitMap.sh
 The script will run on the current directory.
 
 #Error Messages
-* If PathToYourGitRepo is not passed in when running the script,
+* If PathToYourGitRepo is not passed in when running the script,   
+`Path was not specified. Script will execute in current directory` 
 * If `PathToGitMap/GitMap.sh PathToYourGitRepo` is passed in, 
 the screen will output 
 `bash: PathToGitMap/GitMap.sh: /bin/bash: bad interpreter: Not a directory`
-`Path was not specified. Script will execute in current directory` 
-will be printed to the screen.
 * When run on a directory that is not a git repository, 
 the screen will output 
 ```
@@ -80,5 +79,5 @@ for every branch in the git repository
 * If passing in more than one PathToYourGitRep, 
 the script will be run only on the first one 
 (or third arguement of the command).
-* The output file will be placed in the repo that is used to 
-run GitMap.sh
+* The output file will be placed in the repo that GitMap.sh is ran on
+
