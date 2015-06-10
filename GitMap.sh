@@ -67,13 +67,13 @@ rm $temp_file2
 rm $temp_file3
 
 #init for boxes
-width=`wc -L $tempDir/master | awk '{print $1;}'`
+length=`wc -L $tempDir/master | awk '{print $1;}'`
 
 boxCnt=0
 box="_"
 lineSeg="_"
 
-while [ $boxCnt -ne $width ]
+while [ $boxCnt -ne $length ]
 do
 	box=$box$lineSeg
 	((boxCnt++))
@@ -146,39 +146,11 @@ do
 		echo $box >> $map
 		echo "" >> $map
 	fi
-	
-
-
 		
 	((count++))
 done <$tempDir\/master
 
 rm $lsInfo
 rm -rf $tempDir
-
-
-
-
-#traverse each information file
-#store ls info in a temp file
-count=0
-#$count -ne 0 -a
-#while read -r branchFile
-#do
-#	while read -r line
-#	do
-		#do stuff with line
-#		firstSegLine=`echo $line | awk '{print $1;}'`
-#		if [ "$firstSegLine" = "Author:" ]
-#			then
-#				echo ^ >> $arrow; echo \| >> $arrow; echo \| >> $arrow
-#		fi
-#		echo $line >> $arrow
-#		((count++))
-#	done <$branchFile
-#done <$lsInfo
-
-
-
 
 cd $currDir
