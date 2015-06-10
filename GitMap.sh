@@ -14,6 +14,8 @@ temp_file="$(mktemp)"
 temp_file2="$(mktemp)"
 temp_file3="$(mktemp)"
 #temp_file4 for tempDir
+lsInfo="$(mktemp XXX --tmpdir=$1)"
+arrow="$(mktemp XXX --tmpdir=$1)"
 
 #create file to get all branch names
 git branch > $temp_file	
@@ -47,12 +49,14 @@ do
 		then
 			git checkout $atBranch
 			((changed++))
-		else
+	else
 			totalBranch2=$currBranch$fileEnd2
 			totalBranch=$currBranch$fileEnd
+			git checkout $currBranch
 	fi
 	git log > $totalBranch2
 	cat $totalBranch2 | sed "s/commit.*//g" | sed "s/Merge:.*//g" | sed 's/<.*>//g' | sed 's/-0700//g' | sed '/^\s*$/d' > tempDir\/$totalBranch
+	echo tempDir\/$totalBranch >> $lsInfo
 	rm $totalBranch2
 	((count++))
 done
@@ -63,5 +67,27 @@ fi
 rm $temp_file
 rm $temp_file2
 rm $temp_file3
+
+#traverse each information file
+#store ls info in a temp file
+count=0
+#$count -ne 0 -a
+while read -r branchFile
+do
+	while read -r line
+	do
+		#do stuff with line
+		firstSegLine=`echo $line | awk '{print $1;}'`
+		if [ "$firstSegLine" = "Author:" ]
+			then
+				echo ^ >> $arrow; echo \| >> $arrow; echo \| >> $arrow
+		fi
+		echo $line >> $arrow
+		((count++))
+	done <$branchFile
+done <$lsInfo
+
+
+
 
 cd $currDir
