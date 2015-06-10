@@ -22,6 +22,7 @@ Author: Timothy Truong
 Date: Wed Jun 10 14:29:09 2015   
 Most recent commit -\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\> \(master\)	
 \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-		
+
 ^    
 |    
 \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-		
@@ -41,9 +42,16 @@ To download, run the command:
 $ git clone https://github.com/ykamo001/GitMap  
 $ . GitMap/GitMap.sh PathToYourGitRepo 
 ```
+If no PathToYourGitRepo is passed in such as
+```
+$ . PathToGitMap/GitMap.sh
+```
+The script will run on the current directory.
+
 ##Examples
 
 
 ##Bugs and Issues
 * Running the program will create a file with a random, 3-lettered name
 * Boxes aren't fully completed yet
+* If the folder isn't a git repository, our script will still try to run
