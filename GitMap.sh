@@ -65,12 +65,19 @@ fi
 rm $temp_file
 rm $temp_file2
 rm $temp_file3
-#find largest file (master)
-#while read -r line
-#do
-	
-#done <$lsInfo
 
+#init for boxes
+width=`wc -L $tempDir/master | awk '{print $1;}'`
+
+boxCnt=0
+box="_"
+lineSeg="_"
+
+while [ $boxCnt -ne $width ]
+do
+	box=$box$lineSeg
+	((boxCnt++))
+done
 
 count=0
 while read -r line
@@ -83,12 +90,12 @@ do
 		if [ $count -ne 0 ]
 		then
 			echo ^ >> $map; echo \| >> $map
-			echo "______________________________" >> $map
+			echo $box >> $map
 			echo "" >> $map
 			echo $line >> $map
 			outputLine=0
 		else
-			echo "______________________________" >> $map
+			echo $box >> $map
 			echo "" >> $map
 			echo $line >> $map
 			outputLine=0
@@ -121,7 +128,7 @@ do
 					then
 						label=$line" -----------------------------> ("$fileNamePlain")"
 						echo $label >> $map
-						echo "______________________________" >> $map
+						echo $box >> $map
 						echo "" >> $map
 						outputLine=0
 					fi
@@ -136,7 +143,7 @@ do
 	if [ $outputLine -ne 0 ]
 	then
 		echo $line >> $map
-		echo "______________________________" >> $map
+		echo $box >> $map
 		echo "" >> $map
 	fi
 	
