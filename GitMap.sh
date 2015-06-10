@@ -58,6 +58,7 @@ do
 	cat $totalBranch2 | sed "s/commit.*//g" | sed "s/Merge:.*//g" | sed 's/<.*>//g' | sed 's/-0700//g' | sed '/^\s*$/d' > tempDir\/$totalBranch
 	echo tempDir\/$totalBranch >> $lsInfo
 	rm $totalBranch2
+	arrowFile=`wc -l tempDir\/$totalBranch | awk '{print $1;}'`
 	((count++))
 done
 if [ $changed -gt 0 ]
