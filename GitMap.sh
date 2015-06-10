@@ -13,19 +13,12 @@ fi
 temp_file="$(mktemp)"
 temp_file2="$(mktemp)"
 temp_file3="$(mktemp)"
-#temp_file4 for tempDir
+tempDir="$(mktemp XXX -d --tmpdir=$1)"
 lsInfo="$(mktemp XXX --tmpdir=$1)"
 map="$(mktemp XXX --tmpdir=$1)"
 
 #create file to get all branch names
 git branch > $temp_file	
-
-#create folder to store branch files
-if [ -d tempDir ]
-	then
-		rm -rf tempDir
-fi
-mkdir tempDir
 
 #filter out the branch we are currently in
 cat $temp_file | grep '\*' > $temp_file2
@@ -55,15 +48,17 @@ do
 			git checkout $currBranch
 	fi
 	git log > $totalBranch2
-	cat $totalBranch2 | sed "s/commit.*//g" | sed "s/Merge:.*//g" | sed 's/<.*>//g' | sed 's/-0700//g' | sed '/^\s*$/d' > tempDir\/$totalBranch
+	cat $totalBranch2 | sed "s/commit.*//g" | sed "s/Merge:.*//g" | sed 's/<.*>//g' | sed 's/-0700//g' | sed '/^\s*$/d' > $tempDir\/$totalBranch
 	echo $totalBranch >> $lsInfo
 	rm $totalBranch2
 	((count++))
 done
+
 if [ $changed -gt 0 ]
-	then
-		git checkout $currBranch
+then
+	git checkout $currBranch
 fi
+
 rm $temp_file
 rm $temp_file2
 rm $temp_file3
@@ -80,12 +75,11 @@ do
 	outputLine=1
 	firstSegLine=`echo $line | awk '{print $1;}'`
 
-
 	if [ "$firstSegLine" = "Author:" ]
 		then
 		if [ $count -ne 0 ]
 		then
-			echo ^ >> $map; echo \| >> $map; echo \| >> $map
+			echo ^ >> $map; echo \| >> $map
 			echo "______________________________" >> $map
 			echo "" >> $map
 			echo $line >> $map
@@ -109,7 +103,7 @@ do
 		while read -r fileName
 		do
 			fileNamePlain=$fileName
-			fileName=tempDir\/$fileName
+			fileName=$tempDir\/$fileName
 			if [ "$fileNamePlain" != "master" ]
 			then
 				#find third line
@@ -147,9 +141,10 @@ do
 
 		
 	((count++))
-done <tempDir\/master
+done <$tempDir\/master
 
 rm $lsInfo
+rm -rf $tempDir
 
 
 
