@@ -67,21 +67,46 @@ rm $temp_file2
 rm $temp_file3
 
 #init for boxes
-length=`wc -L $tempDir/master | awk '{print $1;}'`
+function findLength {
+	length=0
+	lineNum=$1
+	lineNumCond=$1
+	lineNumCond=$((lineNumCond+3))
+	lineCnt=0
+	while [ $lineCnt -ne $lineNumCond ]
+	do
+		read -r lengthLine
+		if [ $lineCnt -ge $lineNum ]
+		then
+			currLength=`echo $lengthLine | wc -L`
+			if [ $currLength -gt $length ]
+			then
+				length=$currLength
+			fi
+		fi
+		((lineCnt++))
+	done <$2
 
-boxCnt=0
-box="_"
-lineSeg="_"
+	boxCnt=0
+	boxLength="_"
+	lineSeg="_"
 
-while [ $boxCnt -ne $length ]
-do
-	box=$box$lineSeg
-	((boxCnt++))
-done
+	while [ $boxCnt -ne $length ]
+	do
+		boxLength=$boxLength$lineSeg
+		((boxCnt++))
+	done
+}
 
 count=0
 while read -r line
 do
+	#find proper length
+	if [ $(($count%3)) == 0 ]
+	then
+		findLength $count "$tempDir/master"
+	fi
+
 	outputLine=1
 	firstSegLine=`echo $line | awk '{print $1;}'`
 
@@ -90,12 +115,12 @@ do
 		if [ $count -ne 0 ]
 		then
 			echo ^ >> $map; echo \| >> $map
-			echo $box >> $map
+			echo $boxLength >> $map
 			echo "" >> $map
 			echo $line >> $map
 			outputLine=0
 		else
-			echo $box >> $map
+			echo $boxLength >> $map
 			echo "" >> $map
 			echo $line >> $map
 			outputLine=0
@@ -128,7 +153,7 @@ do
 					then
 						label=$line" -----------------------------> ("$fileNamePlain")"
 						echo $label >> $map
-						echo $box >> $map
+						echo $boxLength >> $map
 						echo "" >> $map
 						outputLine=0
 					fi
@@ -143,7 +168,7 @@ do
 	if [ $outputLine -ne 0 ]
 	then
 		echo $line >> $map
-		echo $box >> $map
+		echo $boxLength >> $map
 		echo "" >> $map
 	fi
 		
