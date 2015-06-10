@@ -3,20 +3,22 @@
 #Beginning comment
 path=$1
 currDir=`pwd`
+
 if [ -z "$path" ]
-	then
-		echo "Path was not specified. Script will execute in current directory"
-		path='.'
-	else
-		cd $path
+then
+	echo "Path was not specified. Script will execute in current directory"
+	path='.'
 fi
+
+cd $path
+
 #make temporary files that will assure us that no file of that name exists
 temp_file="$(mktemp)"
 temp_file2="$(mktemp)"
 temp_file3="$(mktemp)"
-tempDir="$(mktemp XXX -d --tmpdir=$path)"
-lsInfo="$(mktemp XXX --tmpdir=$path)"
-map="$(mktemp XXX --tmpdir=$path)"
+tempDir="$(mktemp -d XXX --tmpdir='.')"
+lsInfo="$(mktemp XXX --tmpdir='.')"
+map="$(mktemp XXX --tmpdir='.')"
 
 #create file to get all branch names
 git branch > $temp_file	
@@ -105,29 +107,29 @@ do
 		do
 			fileNamePlain=$fileName
 			fileName=$tempDir\/$fileName
-			if [ "$fileNamePlain" != "master" ]
-			then
-				#find third line
-				count2=0
-				while [ $count2 -ne 3 ]
-				do
-					read -r thirdLine	
+			#if [ "$fileNamePlain" != "master" ]
+			#then
+			#find third line
+			count2=0
+			while [ $count2 -ne 3 ]
+			do
+				read -r thirdLine	
 
-					if [ $count2 -eq 2 ]
+				if [ $count2 -eq 2 ]
+				then
+					if [ "$thirdLine" = "$line" ]
 					then
-						if [ "$thirdLine" = "$line" ]
-						then
-							label=$line" -----------------------------> ("$fileNamePlain")"
-							echo $label >> $map
-							echo "______________________________" >> $map
-							echo "" >> $map
-							outputLine=0
-						fi
+						label=$line" -----------------------------> ("$fileNamePlain")"
+						echo $label >> $map
+						echo "______________________________" >> $map
+						echo "" >> $map
+						outputLine=0
 					fi
+				fi
 
-					((count2++))
-				done <$fileName
-			fi
+				((count2++))
+			done <$fileName
+			#fi
 		done <$lsInfo
 	fi
 
