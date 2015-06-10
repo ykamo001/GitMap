@@ -65,12 +65,19 @@ fi
 rm $temp_file
 rm $temp_file2
 rm $temp_file3
-#find largest file (master)
-#while read -r line
-#do
-	
-#done <$lsInfo
 
+#init for boxes
+length=`wc -L $tempDir/master | awk '{print $1;}'`
+
+boxCnt=0
+box="_"
+lineSeg="_"
+
+while [ $boxCnt -ne $length ]
+do
+	box=$box$lineSeg
+	((boxCnt++))
+done
 
 count=0
 while read -r line
@@ -83,12 +90,12 @@ do
 		if [ $count -ne 0 ]
 		then
 			echo ^ >> $map; echo \| >> $map
-			echo "______________________________" >> $map
+			echo $box >> $map
 			echo "" >> $map
 			echo $line >> $map
 			outputLine=0
 		else
-			echo "______________________________" >> $map
+			echo $box >> $map
 			echo "" >> $map
 			echo $line >> $map
 			outputLine=0
@@ -121,7 +128,7 @@ do
 					then
 						label=$line" -----------------------------> ("$fileNamePlain")"
 						echo $label >> $map
-						echo "______________________________" >> $map
+						echo $box >> $map
 						echo "" >> $map
 						outputLine=0
 					fi
@@ -136,42 +143,14 @@ do
 	if [ $outputLine -ne 0 ]
 	then
 		echo $line >> $map
-		echo "______________________________" >> $map
+		echo $box >> $map
 		echo "" >> $map
 	fi
-	
-
-
 		
 	((count++))
 done <$tempDir\/master
 
 rm $lsInfo
 rm -rf $tempDir
-
-
-
-
-#traverse each information file
-#store ls info in a temp file
-count=0
-#$count -ne 0 -a
-#while read -r branchFile
-#do
-#	while read -r line
-#	do
-		#do stuff with line
-#		firstSegLine=`echo $line | awk '{print $1;}'`
-#		if [ "$firstSegLine" = "Author:" ]
-#			then
-#				echo ^ >> $arrow; echo \| >> $arrow; echo \| >> $arrow
-#		fi
-#		echo $line >> $arrow
-#		((count++))
-#	done <$branchFile
-#done <$lsInfo
-
-
-
 
 cd $currDir
