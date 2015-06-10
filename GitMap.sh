@@ -6,16 +6,24 @@ currDir=`pwd`
 if [ -z "$path" ]
 	then
 		echo "Path was not specified. Script will execute in current directory"
+		path='.'
+		tempDir="$(mktemp XXX -d --tmpdir=$path)"
+		lsInfo="$(mktemp XXX --tmpdir=$path)"
+		map="$(mktemp XXX --tmpdir=$path)"
 	else
 		cd $path
+		tempDir="$(mktemp XXX -d --tmpdir=$1)"
+		lsInfo="$(mktemp XXX --tmpdir=$1)"
+		map="$(mktemp XXX --tmpdir=$1)"
 fi
 #make temporary files that will assure us that no file of that name exists
 temp_file="$(mktemp)"
 temp_file2="$(mktemp)"
 temp_file3="$(mktemp)"
-tempDir="$(mktemp XXX -d --tmpdir=$1)"
-lsInfo="$(mktemp XXX --tmpdir=$1)"
-map="$(mktemp XXX --tmpdir=$1)"
+
+#tempDir="$(mktemp XXX -d --tmpdir=$1)"
+#lsInfo="$(mktemp XXX --tmpdir=$1)"
+#map="$(mktemp XXX --tmpdir=$1)"
 
 #create file to get all branch names
 git branch > $temp_file	
