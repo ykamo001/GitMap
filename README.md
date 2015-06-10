@@ -6,18 +6,18 @@ The map will show the author, date, and message of each commit.
 The information of each commit is contained within a box. 
 Currently, the box will look like 
 
-\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_   
 Author: Name of Author		
 Date: Date of commit    		
 Commit Message		
-\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_   
 
 The commits at the top of the file refer to the most recent commits. 
 The box points upward to show the next/more recent commit. 
 An arrow pointing to the side from the commit message means the branch has ended.
 An example would be
 
-\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_   
 Author: Timothy Truong		
 Date: Wed Jun 10 14:29:09 2015   
 Most recent commit -\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\> \(master\)	
@@ -25,7 +25,7 @@ Most recent commit -\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\> \
 
 ^    
 |    
-\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_   
 Author: Timothy Truong		
 Date: Wed Jun 10 14:20:28 2015   
 Less recent commit    
@@ -80,4 +80,6 @@ for every branch in the git repository
 the script will be run only on the first one 
 (or third arguement of the command).
 * The output file will be placed in the repo that GitMap.sh is ran on
+* The box line length may be incorrect 
+(Due to outputting an extra box line after merge pull requests)
 
