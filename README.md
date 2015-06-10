@@ -31,6 +31,8 @@ Date: Wed Jun 10 14:20:28 2015
 Less recent commit    
 \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_		
 
+The resulting file will be stored in the directory that was passed into the command.
+
 
 ##Warning
 Commit all changes to the repository before running this program. 
@@ -48,14 +50,18 @@ $ . PathToGitMap/GitMap.sh
 ```
 The script will run on the current directory.
 
-#Errors
+#Error Messages
+* If PathToYourGitRepo is not passed in when running the script,
+* If `PathToGitMap/GitMap.sh PathToYourGitRepo` is passed in, 
+the screen will output 
+`bash: PathToGitMap/GitMap.sh: /bin/bash: bad interpreter: Not a directory`
+`Path was not specified. Script will execute in current directory` 
+will be printed to the screen.
 * When run on a directory that is not a git repository, 
 the screen will output 
 ```
-fatal: Not a git repository 
-(or any parent up to mount point /homeDirectory)    
-Stopping at filesystem boundary 
-(GIT_DISCOVERY_ACROSS_FILESYSTEM not set).   
+fatal: Not a git repository (or any parent up to mount point /homeDirectory)    
+Stopping at filesystem boundary (GIT_DISCOVERY_ACROSS_FILESYSTEM not set).   
 wc: ./RandomTempFileName/master: No such file or directory    
 bash: [: 0: unary operator expected
 bash: ./RandomTempFileName/master: Nosuch file or directory
@@ -71,4 +77,8 @@ bash: ./RandomTempFileName/master: Nosuch file or directory
 * When run, the screen will output 
 `Switched to branch \'exampleBranch\'` 
 for every branch in the git repository
-
+* If passing in more than one PathToYourGitRep, 
+the script will be run only on the first one 
+(or third arguement of the command).
+* The output file will be placed in the repo that is used to 
+run GitMap.sh
