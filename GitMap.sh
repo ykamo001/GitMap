@@ -93,7 +93,6 @@ function findLength {
 			currLength=`echo $lengthLine | wc -L`
 			if [ $currLength -gt $length ]
 			then
-				echo $lengthLine
 				length=$currLength
 			fi
 		fi
