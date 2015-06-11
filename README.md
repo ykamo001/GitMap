@@ -5,19 +5,19 @@ The map will be saved in a plain text file with the name of (TBD).
 The map will show the author, date, and message of each commit. 
 The information of each commit is contained within a box. 
 Currently, the box will look like 
-
+```
 \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_   
 Author: Name of Author		
 Date: Date of commit..    		
 Commit Message........		
 \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_   
-
+```
 The commits at the top of the file refer to the most recent commits. 
 The box points upward to show the next/more recent commit. 
 An arrow pointing to the side from the commit message means the branch has ended.
 The long list of periods is to format the box correctly. 
 An example would be
-
+```
 \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_   
 Author: Timothy Truong........		
 Date: Wed Jun 10 14:29:09 2015   
@@ -31,7 +31,7 @@ Author: Timothy Truong........
 Date: Wed Jun 10 14:20:28 2015   
 Less recent commit............    
 \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
-
+```
 The resulting file will be stored in the directory that was passed into the command.
 
 
