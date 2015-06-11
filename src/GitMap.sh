@@ -1,5 +1,7 @@
 #!/bin/bash/
 
+#mchen046 is now a contributor!
+
 #Beginning comment
 path=$1
 currDir=`pwd`
