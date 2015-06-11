@@ -91,7 +91,6 @@ bash: ./RandomTempFileName/master: Nosuch file or directory
 You can see an example of the script run on ykamo001's rshell repository in GitMap/example.
 
 ##Bugs and Issues
-* Running the program will create a file with a random, 3-lettered name
 * If the folder isn't a git repository, our script will still try to run and an empty file will be created
 * When run, the screen will output 
 `Switched to branch \'exampleBranch\'` 
@@ -101,6 +100,5 @@ the script will be run only on the first one
 (or third arguement of the command).
 * The output file will be placed in the repository that GitMap.sh is ran on
 * The program's runtime is long, and depends solely upon the amount of branches and commits in the git repository.
-* If two branches end on the same commit, only one is shown.
 * Only works if all branches are from the same head branch
 
