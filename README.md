@@ -7,6 +7,7 @@ The information of each commit is contained within a box.
 Currently, the box will look like 
 ```
 _______________________   
+......................|
 Author: Name of Author|		
 Date: Date of commit..|    		
 Commit Message........|		
@@ -19,6 +20,7 @@ The long list of periods is to format the box correctly.
 An example would be
 ```
 _______________________________   
+..............................|
 Author: Timothy Truong........|		
 Date: Wed Jun 10 14:29:09 2015|   
 Most recent commit -----------------------------> (master)	
@@ -27,6 +29,7 @@ _______________________________
 ^    
 |    
 _______________________________   
+..............................|
 Author: Timothy Truong........|		
 Date: Wed Jun 10 14:20:28 2015|   
 Less recent commit............|    
