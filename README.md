@@ -36,8 +36,8 @@ An example would be
 |Less recent commit............|    
 |______________________________|
 ```
-The program's run time will depend upon the amount of branches and commits that your git repository contains, as the greater the
-number of commits and branches there are, the longer it will take for the program to finish executing.
+The program's run time will depend upon the amount of branches and commits that your git repository contains, 
+as the greater the number of commits and branches there are, the longer it will take for the program to finish executing.
 For a place of comparison, a git repository with only the `master` branch, and 100 commits, will take about 40 seconds to run.
 The resulting file will be stored in the directory that was passed into the command.
 The state of your git repo is very important - you should know what's going on in it, and what's happened to it,
@@ -86,7 +86,7 @@ bash: ./RandomTempFileName/master: Nosuch file or directory
 ```
 
 ##Examples
-
+You can see an example of the script run on ykamo001's rshell repository in GitMap/example.
 
 ##Bugs and Issues
 * Running the program will create a file with a random, 3-lettered name
