@@ -1,6 +1,7 @@
 #!/bin/bash/
 
 #mchen046 is now a contributor!
+#now i am one
 
 #Beginning comment
 path=$1
