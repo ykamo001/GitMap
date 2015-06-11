@@ -23,7 +23,7 @@ An example would be
 |..............................|
 |Author: Timothy Truong........|		
 |Date: Wed Jun 10 14:29:09 2015|   
-|Most recent commit............| -----------------------------> (master)	
+|Most recent commit............| -----> (master)	
 |______________________________|
 
 ^    
