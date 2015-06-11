@@ -66,6 +66,7 @@ rm $temp_file
 rm $temp_file2
 rm $temp_file3
 
+echo "Please wait a minute"
 #init for boxes
 function findLength {
 	fileSize=`wc -l $2 | awk '{print $1;}'`
