@@ -54,16 +54,16 @@ $ . PathToGitMap/src/GitMap.sh PathToYourGitRepo
 ```
 If no PathToYourGitRepo is passed in such as
 ```
-$ . PathToGitMap/GitMap.sh
+$ . PathToGitMap/src/GitMap.sh
 ```
 The script will run on the current directory.
 
 #Error Messages
 * If PathToYourGitRepo is not passed in when running the script,   
 `Path was not specified. Script will execute in current directory` 
-* If `PathToGitMap/GitMap.sh PathToYourGitRepo` is passed in, 
+* If `PathToGitMap/src/GitMap.sh PathToYourGitRepo` is passed in, 
 the screen will output 
-`bash: PathToGitMap/GitMap.sh: /bin/bash: bad interpreter: Not a directory`
+`bash: PathToGitMap/src/GitMap.sh: /bin/bash: bad interpreter: Not a directory`
 * When run on a directory that is not a git repository, 
 the screen will output 
 ```
