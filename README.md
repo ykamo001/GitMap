@@ -10,7 +10,7 @@ GitMap enhances the `git log` command, displaying commits for all branches while
 Currently, the script will only work if every branch is derived from the same head branch. 
 The map will show the author, date, and message of each commit. 
 The information of each commit is contained within a box. 
-Currently, the box will look like 
+Currently, the box will look like:
 ```
 .______________________   
 |......................|
@@ -20,10 +20,10 @@ Currently, the box will look like
 |______________________|   
 ```
 The commits at the top of the file refer to the most recent commits. 
-The box points upward to show the next/more recent commit. 
-An arrow pointing to the side from the commit message means the branch has ended.
+The box points upwards to show the next/more recent commit. 
+An arrow pointing to the side from the commit message means that the branch has ended.
 The long list of periods is to format the box correctly. 
-An example would be
+An example would be:
 ```
 .______________________________   
 |..............................|
@@ -41,9 +41,9 @@ An example would be
 |Less recent commit............|    
 |______________________________|
 ```
-The program's run time will depend upon the amount of branches and commits that your git repository contains, 
-as the greater the number of commits and branches there are, the longer it will take for the program to finish executing.
-For a comparison, a git repository with only the master branch, and 100 commits, will take about 40 seconds to run.
+The program's run time will depend upon the amount of branches and commits that your git repository contains; 
+the greater the number of commits and branches, the longer it will take for the program to finish executing.
+A git repository with only the master branch and 100 commits will take about 40 seconds to run.
 The resulting file will be stored in the directory that was passed into the command.
 
 ##Warning
