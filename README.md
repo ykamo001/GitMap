@@ -2,6 +2,7 @@
 ##Description
 GitMap creates a map of a git repository, showing all the commits of each branch. 
 The map will be saved in a plain text file with the name of (TBD). 
+Currently, the script will only work if every branch is derived from the same head branch.    
 The map will show the author, date, and message of each commit. 
 The information of each commit is contained within a box. 
 Currently, the box will look like 
@@ -87,4 +88,5 @@ the script will be run only on the first one
 * The output file will be placed in the repo that GitMap.sh is ran on
 * The program's runtime is long, about 40 seconds.
 * If two branches end on the same commit, only one is shown.
+* Only works if all branches are from the same head branch
 
