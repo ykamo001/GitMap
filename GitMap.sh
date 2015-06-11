@@ -135,6 +135,7 @@ function width {
 }
 
 
+lsInfoSize=`wc -l $lsInfo | awk '{print $1;}'`
 dateString=''
 historySize=`wc -l $tempDir/master | awk '{print $1;}'`
 count=0
@@ -199,6 +200,8 @@ do
 
 	if [ "$firstSegLine" != "Author:" -a "$firstSegLine" != "Date:" ]
 	then
+		branchCnt=0
+		sameDate=0
 		while read -r fileName
 		do
 			fileNamePlain=$fileName
@@ -207,11 +210,9 @@ do
 			#then
 			#find third line
 			count2=0
-			sameDate=0
 			while [ $count2 -ne 3 ]
 			do
 				read -r compareLine
-
 				if [ $count2 -eq 1 ] #compare date
 				then
 					if [ "$compareLine" = "$dateString" ]
@@ -224,17 +225,28 @@ do
 				then
 					if [ "$compareLine" = "$line" ]
 					then
-						special=0
-						width $special	
-						label='|'$line" -----------------------------> ("$fileNamePlain")"
-						echo $label >> $map
+						echo $fileNamePlain
+						if [ $outputLine -eq 1 ]
+						then
+							special=0
+							width $special	
+							label=$line" -----> ("$fileNamePlain")"
+						else
+							label=$label" -----> ("$fileNamePlain")"
+						fi
 						outputLine=0
 					fi
 				fi
-
 				((count2++))
 			done <$fileName
-			#fi
+			
+			if [[ $(($branchCnt+1)) -eq $lsInfoSize ]] && [[ $outputLine -eq 0 ]]
+			then
+				label='|'$label
+				echo $label >> $map
+			fi
+			
+			((branchCnt++))
 		done <$lsInfo
 	fi
 
