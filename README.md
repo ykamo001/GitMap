@@ -83,4 +83,4 @@ the script will be run only on the first one
 * The output file will be placed in the repo that GitMap.sh is ran on
 * The box line length may be incorrect 
 (Due to outputting an extra box line after merge pull requests)
-* The program's runtime is long
+* The program's runtime is long, about 40 seconds.
