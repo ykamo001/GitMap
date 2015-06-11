@@ -136,6 +136,7 @@ function width {
 
 
 lsInfoSize=`wc -l $lsInfo | awk '{print $1;}'`
+echo $lsInfoSize
 dateString=''
 historySize=`wc -l $tempDir/master | awk '{print $1;}'`
 count=0
