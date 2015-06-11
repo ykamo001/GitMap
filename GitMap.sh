@@ -99,19 +99,31 @@ function findLength {
 }
 
 count=0
+lineCntParam=0
 while read -r line
 do
-	#find proper length
-	if [ $(($count%3)) == 0 ]
-	then
-		findLength $count "$tempDir/master"
-	fi
-
 	outputLine=1
 	firstSegLine=`echo $line | awk '{print $1;}'`
 
-	if [ "$firstSegLine" = "Author:" ]
+	#find proper length
+	if [ $(($count%3)) == 0 ]
+	then
+		if [ "$firstSegLine" = "Author:" ]
 		then
+			if [ $count -ne 0 ]
+			then
+				echo $boxLength >> $map
+				echo "" >> $map
+			fi
+			findLength $lineCntParam "$tempDir/master"
+		else
+			((count--))
+		fi
+	fi
+	
+
+	if [ "$firstSegLine" = "Author:" ]
+	then
 		if [ $count -ne 0 ]
 		then
 			echo ^ >> $map; echo \| >> $map
@@ -153,8 +165,6 @@ do
 					then
 						label=$line" -----------------------------> ("$fileNamePlain")"
 						echo $label >> $map
-						echo $boxLength >> $map
-						echo "" >> $map
 						outputLine=0
 					fi
 				fi
@@ -168,10 +178,8 @@ do
 	if [ $outputLine -ne 0 ]
 	then
 		echo $line >> $map
-		echo $boxLength >> $map
-		echo "" >> $map
 	fi
-		
+	((lineCntParam++))	
 	((count++))
 done <$tempDir\/master
 
