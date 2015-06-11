@@ -1,5 +1,8 @@
 #!/bin/bash/
 
+#mchen046 is now a contributor!
+#now i am one
+
 #Beginning comment
 path=$1
 currDir=`pwd`
@@ -136,6 +139,7 @@ function width {
 
 
 lsInfoSize=`wc -l $lsInfo | awk '{print $1;}'`
+echo $lsInfoSize
 dateString=''
 historySize=`wc -l $tempDir/master | awk '{print $1;}'`
 count=0
