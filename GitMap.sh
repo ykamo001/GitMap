@@ -111,8 +111,32 @@ function findLength {
 	done
 }
 
+function width {
+	compare=$1
+	base=0
+	LineLength=${#line}
+	remaining=$((length - LineLength))
+	((remaining--))
+	if [ $compare -gt $base ]
+	then
+		((remaining++))
+		((remaining++))
+	fi
+	space='.'
+	tempCnt=0
+	while [ $tempCnt -le $remaining ]
+	do
+		line=$line$space
+		((tempCnt++))
+	done
+	edge="|"
+	line=$line$edge
+	echo $line >> $map
+}
+
 count=0
 lineCntParam=0
+special=0
 while read -r line
 do
 	outputLine=1
@@ -141,19 +165,22 @@ do
 			echo ^ >> $map; echo \| >> $map
 			echo $boxLength >> $map
 			echo "" >> $map
-			echo $line >> $map
+			special=0
+			width $special	
 			outputLine=0
 		else
 			echo $boxLength >> $map
 			echo "" >> $map
-			echo $line >> $map
+			special=0
+			width $special	
 			outputLine=0
 		fi
 	fi
 
 	if [ "$firstSegLine" = "Date:" ]
 		then
-			echo $line >> $map
+			special=1
+			width $special	
 			outputLine=0
 	fi
 
@@ -189,7 +216,8 @@ do
 
 	if [ $outputLine -ne 0 ]
 	then
-		echo $line >> $map
+		special=0
+		width $special	
 	fi
 	((lineCntParam++))	
 	((count++))
