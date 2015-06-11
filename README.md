@@ -79,7 +79,7 @@ bash: ./RandomTempFileName/master: Nosuch file or directory
 ```
 
 ##Examples
-You can see an example of the script run on @ykamo001's rshell repository in GitMap/example.
+You can see an example of the script run on [@ykamo001's](https://github.com/ykamo001) rshell repository in GitMap/example.
 
 ##Bugs and Issues
 * If the folder isn't a git repository, our script will still try to run and an empty file will be created
