@@ -8,7 +8,7 @@ The state of your git repo is very important - you should know what's going on i
 especially when you're working on a project with multiple people contributing to it.
 GitMap enhances the `git log` command, displaying commits for all branches while tagging the current position of each branch.
 
-Currently, the script will only work if every branch is derived from the same head branch.    
+Currently, the script will only work if every branch is derived from the same head branch. 
 The map will show the author, date, and message of each commit. 
 The information of each commit is contained within a box. 
 Currently, the box will look like 
