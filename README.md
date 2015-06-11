@@ -1,4 +1,4 @@
-#GitMap (Work in Progress)
+#GitMap 
 ##Description
 GitMap creates a map of a git repository, showing all the commits of each branch. 
 The map will be saved in a plain text file with the name of (TBD). 
