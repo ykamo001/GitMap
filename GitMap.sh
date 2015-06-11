@@ -68,19 +68,32 @@ rm $temp_file3
 
 #init for boxes
 function findLength {
+	fileSize=`wc -l $2 | awk '{print $1;}'`
 	length=0
 	lineNum=$1
-	lineNumCond=$1
-	lineNumCond=$((lineNumCond+3))
+	lineNumCond=$(($lineNum+4))
+
 	lineCnt=0
-	while [ $lineCnt -ne $lineNumCond ]
+
+	while [ $lineCnt -ne $lineNumCond -a $lineCnt -ne $fileSize ]
 	do
 		read -r lengthLine
+		lengthLineSeg=`echo $lengthLine | awk '{print $1;}'`
+		
+		if [ $(($lineCnt+1)) == $lineNumCond ]
+		then
+			if [ "$lengthLineSeg" != "Author:" ]
+			then
+				((lineCnt--))
+			fi
+		fi
+
 		if [ $lineCnt -ge $lineNum ]
 		then
 			currLength=`echo $lengthLine | wc -L`
 			if [ $currLength -gt $length ]
 			then
+				echo $lengthLine
 				length=$currLength
 			fi
 		fi
@@ -121,7 +134,6 @@ do
 		fi
 	fi
 	
-
 	if [ "$firstSegLine" = "Author:" ]
 	then
 		if [ $count -ne 0 ]
