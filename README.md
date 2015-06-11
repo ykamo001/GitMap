@@ -2,9 +2,23 @@
 ##Description
 GitMap creates a map of a git repository, showing all the commits of each branch. 
 The map will be saved in a plain text file with the name of Mike_Izbicki's_Treasure_Map. 
+
+
+The state of your git repo is very important - you should know what's going on in it, and what's happened to it,
+especially when you're working on a project with multiple people contributing to it.
+
+Git has a particular command that let's you see all the commits made so far in the current branch, `git log`, 
+but it's not that clean to read, and it doesn't show you where each branch in your entire repository started and ended. 
+
+`GitMap` creates a map for you, allowing you to see how you ended up in the position you are in now. 
+It allows you to see what people have contributed, when it was made, and to what branch it was made to. 
+This allows you to stay up-to-date with your repository and informed of it's current status.
+If something goes wrong all of a sudden, you can easily trace the steps of your repository. 
+
 Currently, the script will only work if every branch is derived from the same head branch.    
 The map will show the author, date, and message of each commit. 
 The information of each commit is contained within a box. 
+
 Currently, the box will look like 
 ```
 .______________________   
@@ -40,18 +54,6 @@ The program's run time will depend upon the amount of branches and commits that 
 as the greater the number of commits and branches there are, the longer it will take for the program to finish executing.
 For a place of comparison, a git repository with only the `master` branch, and 100 commits, will take about 40 seconds to run.
 The resulting file will be stored in the directory that was passed into the command.
-The state of your git repo is very important - you should know what's going on in it, and what's happened to it,
-especially when you're working on a project with multiple people contributing to it.
-Git has a particular command that let's you see all the commits made so far in the current branch, `git log`, 
-but it's not that clean to read, and it doesn't show you where each branch in your entire repository started and ended. 
-A map let's you track your route on a journey, from starting to end, 
-and even allows you to see the other routes and events that contributed to your journey. 
-`GitMap` creates that map for you, allowing you to see how you ended up in the position you are in now. 
-It allows you to see what people have contributed to it, what the contributions are, when it was made, and to what branch it was made to. 
-This allows you to stay up-to-date with your repository, and informed of it's current status, 
-because if something goes wrong all of a sudden, you can easily trace the steps of your journey. 
-And when other people contribute to your journey, it's important that you be able to contact whoever is necessary to fix that problem 
-so you can once again continue on the path to your destination.
 
 ##Warning
 Before running this program on a git repository, commit all changes to the repository. 
