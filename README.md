@@ -2,6 +2,7 @@
 ##Description
 GitMap creates a map of a git repository, showing all the commits of each branch. 
 The map will be saved in a plain text file with the name of (TBD). 
+Currently, the script will only work if every branch is derived from the same head branch.    
 The map will show the author, date, and message of each commit. 
 The information of each commit is contained within a box. 
 Currently, the box will look like 
@@ -35,7 +36,9 @@ An example would be
 |Less recent commit............|    
 |______________________________|
 ```
-The program will run for about 40 seconds. 
+The program's run time will depend upon the amount of branches and commits that your git repository contains, as the greater the
+number of commits and branches there are, the longer it will take for the program to finish executing.
+For a place of comparison, a git repository with only the `master` branch, and 100 commits, will take about 40 seconds to run.
 The resulting file will be stored in the directory that was passed into the command.
 
 
@@ -47,20 +50,20 @@ All uncommited changes will be reverted to the last commit.
 To download, run the command:    
 ```
 $ git clone https://github.com/ykamo001/GitMap  
-$ . GitMap/GitMap.sh PathToYourGitRepo 
+$ . PathToGitMap/src/GitMap.sh PathToYourGitRepo 
 ```
 If no PathToYourGitRepo is passed in such as
 ```
-$ . PathToGitMap/GitMap.sh
+$ . PathToGitMap/src/GitMap.sh
 ```
 The script will run on the current directory.
 
 #Error Messages
 * If PathToYourGitRepo is not passed in when running the script,   
 `Path was not specified. Script will execute in current directory` 
-* If `PathToGitMap/GitMap.sh PathToYourGitRepo` is passed in, 
+* If `PathToGitMap/src/GitMap.sh PathToYourGitRepo` is passed in, 
 the screen will output 
-`bash: PathToGitMap/GitMap.sh: /bin/bash: bad interpreter: Not a directory`
+`bash: PathToGitMap/src/GitMap.sh: /bin/bash: bad interpreter: Not a directory`
 * When run on a directory that is not a git repository, 
 the screen will output 
 ```
@@ -76,7 +79,6 @@ bash: ./RandomTempFileName/master: Nosuch file or directory
 
 ##Bugs and Issues
 * Running the program will create a file with a random, 3-lettered name
-* Boxes aren't fully completed yet
 * If the folder isn't a git repository, our script will still try to run and an empty file will be created
 * When run, the screen will output 
 `Switched to branch \'exampleBranch\'` 
@@ -84,7 +86,8 @@ for every branch in the git repository
 * If passing in more than one PathToYourGitRep, 
 the script will be run only on the first one 
 (or third arguement of the command).
-* The output file will be placed in the repo that GitMap.sh is ran on
-* The program's runtime is long, about 40 seconds.
+* The output file will be placed in the repository that GitMap.sh is ran on
+* The program's runtime is long, and depends solely upon the amount of branches and commits in the git repository.
 * If two branches end on the same commit, only one is shown.
+* Only works if all branches are from the same head branch
 
