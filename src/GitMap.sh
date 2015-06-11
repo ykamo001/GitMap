@@ -1,8 +1,5 @@
 #!/bin/bash/
 
-#mchen046 is now a contributor!
-#now i am one
-
 #Beginning comment
 path=$1
 currDir=`pwd`
@@ -21,7 +18,7 @@ temp_file2="$(mktemp)"
 temp_file3="$(mktemp)"
 tempDir="$(mktemp -d XXX --tmpdir='.')"
 lsInfo="$(mktemp XXX --tmpdir='.')"
-map="$(mktemp XXX --tmpdir='.')"
+map="Mike_Izbicki's_Treasure_Map"
 
 #create file to get all branch names
 git branch > $temp_file	
@@ -139,7 +136,6 @@ function width {
 
 
 lsInfoSize=`wc -l $lsInfo | awk '{print $1;}'`
-echo $lsInfoSize
 dateString=''
 historySize=`wc -l $tempDir/master | awk '{print $1;}'`
 count=0
@@ -210,13 +206,18 @@ do
 		do
 			fileNamePlain=$fileName
 			fileName=$tempDir\/$fileName
-			#if [ "$fileNamePlain" != "master" ]
-			#then
-			#find third line
 			count2=0
+
 			while [ $count2 -ne 3 ]
 			do
 				read -r compareLine
+
+				#if [[ "$fileNamePlain" = "signals" ]]
+				#then
+				#	echo $compareLine >> help
+				#	echo $line >> help
+				#fi
+
 				if [ $count2 -eq 1 ] #compare date
 				then
 					if [ "$compareLine" = "$dateString" ]
@@ -227,15 +228,18 @@ do
 
 				if [[ $sameDate -eq 1 ]] && [[ $count2 -eq 2 ]] #compare commit message
 				then
-					if [ "$compareLine" = "$line" ]
+					if [[ "$compareLine" = "$line" ]] || [[ "$compareLine" = "$lineBackup" ]]
 					then
-						echo $fileNamePlain
 						if [ $outputLine -eq 1 ]
 						then
 							special=0
+							lineBackup=$line
 							width $special	
 							label=$line" -----> ("$fileNamePlain")"
-						else
+						fi
+						
+						if [ $outputLine -eq 0 ]
+						then
 							label=$label" -----> ("$fileNamePlain")"
 						fi
 						outputLine=0
