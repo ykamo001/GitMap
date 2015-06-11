@@ -124,7 +124,7 @@ function width {
 	fi
 	space='.'
 	tempCnt=0
-	while [ $tempCnt -le $remaining ]
+	while [ $tempCnt -le $(($remaining+1)) ]
 	do
 		line=$line$space
 		((tempCnt++))
@@ -149,6 +149,7 @@ do
 		then
 			if [ $count -ne 0 ]
 			then
+				boxLength=$boxLength'|'
 				echo $boxLength >> $map
 				echo "" >> $map
 			fi
@@ -163,18 +164,23 @@ do
 		if [ $count -ne 0 ]
 		then
 			echo ^ >> $map; echo \| >> $map
-			echo $boxLength >> $map
-			echo "" >> $map
-			special=0
-			width $special	
-			outputLine=0
-		else
-			echo $boxLength >> $map
-			echo "" >> $map
-			special=0
-			width $special	
-			outputLine=0
 		fi
+		echo $boxLength >> $map
+		newLineCnt=0
+		newLineGuard=''
+		while [ $newLineCnt -ne $(($boxCnt+1)) ]
+		do
+			newLineGuard=$newLineGuard$'.'
+			((newLineCnt++))
+		done
+		newLineGuard=$newLineGuard'|'
+		echo $newLineGuard >> $map
+
+
+		special=0
+		width $special	
+		outputLine=0
+
 	fi
 
 	if [ "$firstSegLine" = "Date:" ]
