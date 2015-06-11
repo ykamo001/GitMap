@@ -86,3 +86,5 @@ the script will be run only on the first one
 (or third arguement of the command).
 * The output file will be placed in the repo that GitMap.sh is ran on
 * The program's runtime is long, about 40 seconds.
+* If two branches end on the same commit, only one is shown.
+
