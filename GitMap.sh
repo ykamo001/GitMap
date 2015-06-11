@@ -131,9 +131,12 @@ function width {
 	done
 	edge="|"
 	line=$line$edge
-	echo $line >> $map
+	#echo $line >> $map
 }
 
+
+dateString=''
+historySize=`wc -l $tempDir/master | awk '{print $1;}'`
 count=0
 lineCntParam=0
 special=0
@@ -149,7 +152,7 @@ do
 		then
 			if [ $count -ne 0 ]
 			then
-				boxLength=$boxLength'|'
+				boxLength='|'$boxLength'|'
 				echo $boxLength >> $map
 				echo "" >> $map
 			fi
@@ -165,7 +168,8 @@ do
 		then
 			echo ^ >> $map; echo \| >> $map
 		fi
-		echo $boxLength >> $map
+		boxLength=$boxLength
+		echo '.'$boxLength >> $map
 		newLineCnt=0
 		newLineGuard=''
 		while [ $newLineCnt -ne $(($boxCnt+1)) ]
@@ -173,22 +177,25 @@ do
 			newLineGuard=$newLineGuard$'.'
 			((newLineCnt++))
 		done
-		newLineGuard=$newLineGuard'|'
+		newLineGuard='|'$newLineGuard'|'
 		echo $newLineGuard >> $map
-
 
 		special=0
 		width $special	
 		outputLine=0
-
+		line='|'$line
+		echo $line >> $map
 	fi
 
 	if [ "$firstSegLine" = "Date:" ]
 		then
+			dateString=$line
 			special=1
 			width $special	
 			outputLine=0
-	fi
+			line='|'$line
+			echo $line >> $map
+		fi
 
 	if [ "$firstSegLine" != "Author:" -a "$firstSegLine" != "Date:" ]
 	then
@@ -200,15 +207,26 @@ do
 			#then
 			#find third line
 			count2=0
+			sameDate=0
 			while [ $count2 -ne 3 ]
 			do
-				read -r thirdLine	
+				read -r compareLine
 
-				if [ $count2 -eq 2 ]
+				if [ $count2 -eq 1 ] #compare date
 				then
-					if [ "$thirdLine" = "$line" ]
+					if [ "$compareLine" = "$dateString" ]
 					then
-						label=$line" -----------------------------> ("$fileNamePlain")"
+						sameDate=1
+					fi
+				fi
+
+				if [[ $sameDate -eq 1 ]] && [[ $count2 -eq 2 ]] #compare commit message
+				then
+					if [ "$compareLine" = "$line" ]
+					then
+						special=0
+						width $special	
+						label='|'$line" -----------------------------> ("$fileNamePlain")"
 						echo $label >> $map
 						outputLine=0
 					fi
@@ -224,9 +242,19 @@ do
 	then
 		special=0
 		width $special	
+		line='|'$line
+		echo $line >> $map
 	fi
+
 	((lineCntParam++))	
 	((count++))
+
+	if [ $lineCntParam -eq "$historySize" ]
+	then
+		boxLength='|'$boxLength'|'
+		echo $boxLength >> $map
+	fi
+
 done <$tempDir\/master
 
 rm $lsInfo
