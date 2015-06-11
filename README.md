@@ -50,7 +50,7 @@ All uncommited changes will be reverted to the last commit.
 To download, run the command:    
 ```
 $ git clone https://github.com/ykamo001/GitMap  
-$ . src/GitMap.sh PathToYourGitRepo 
+$ . PathToGitMap/src/GitMap.sh PathToYourGitRepo 
 ```
 If no PathToYourGitRepo is passed in such as
 ```
