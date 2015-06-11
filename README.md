@@ -6,14 +6,7 @@ The map will be saved in a plain text file with the name of Mike_Izbicki's_Treas
 
 The state of your git repo is very important - you should know what's going on in it, and what's happened to it,
 especially when you're working on a project with multiple people contributing to it.
-
-Git has a particular command that let's you see all the commits made so far in the current branch, `git log`, 
-but it's not that clean to read, and it doesn't show you where each branch in your entire repository started and ended. 
-
-GitMap creates a map for you, allowing you to see how you ended up in the position you are in now. 
-It allows you to see what people have contributed, when it was made, and to what branch it was made to. 
-This allows you to stay up-to-date with your repository and informed of it's current status.
-If something goes wrong all of a sudden, you can easily trace the steps of your repository. 
+GitMap enhances the `git log` command, displaying commits for all branches while tagging the current position of each branch.
 
 Currently, the script will only work if every branch is derived from the same head branch.    
 The map will show the author, date, and message of each commit. 
