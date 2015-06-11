@@ -10,7 +10,7 @@ especially when you're working on a project with multiple people contributing to
 Git has a particular command that let's you see all the commits made so far in the current branch, `git log`, 
 but it's not that clean to read, and it doesn't show you where each branch in your entire repository started and ended. 
 
-`GitMap` creates a map for you, allowing you to see how you ended up in the position you are in now. 
+GitMap creates a map for you, allowing you to see how you ended up in the position you are in now. 
 It allows you to see what people have contributed, when it was made, and to what branch it was made to. 
 This allows you to stay up-to-date with your repository and informed of it's current status.
 If something goes wrong all of a sudden, you can easily trace the steps of your repository. 
@@ -18,7 +18,6 @@ If something goes wrong all of a sudden, you can easily trace the steps of your 
 Currently, the script will only work if every branch is derived from the same head branch.    
 The map will show the author, date, and message of each commit. 
 The information of each commit is contained within a box. 
-
 Currently, the box will look like 
 ```
 .______________________   
@@ -52,7 +51,7 @@ An example would be
 ```
 The program's run time will depend upon the amount of branches and commits that your git repository contains, 
 as the greater the number of commits and branches there are, the longer it will take for the program to finish executing.
-For a place of comparison, a git repository with only the `master` branch, and 100 commits, will take about 40 seconds to run.
+For a place of comparison, a git repository with only the master branch, and 100 commits, will take about 40 seconds to run.
 The resulting file will be stored in the directory that was passed into the command.
 
 ##Warning
