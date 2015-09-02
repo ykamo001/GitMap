@@ -18,7 +18,7 @@ temp_file2="$(mktemp)"
 temp_file3="$(mktemp)"
 tempDir="$(mktemp -d XXX --tmpdir='.')"
 lsInfo="$(mktemp XXX --tmpdir='.')"
-map="Mike_Izbicki's_Treasure_Map"
+map="My_Treasure_Map"
 
 #create file to get all branch names
 git branch > $temp_file	
