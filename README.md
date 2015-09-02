@@ -1,7 +1,7 @@
 #GitMap 
 ##Description
 GitMap creates a map of a git repository, showing all the commits of each branch. 
-The map will be saved in a plain text file with the name of **My_Izbicki's_Treasure_Map**. 
+The map will be saved in a plain text file with the name of **My_Treasure_Map**. 
 
 The state of your git repo is very important - you should know what's going on in it, and what's happened to it,
 especially when you're working on a project with multiple people contributing to it.
