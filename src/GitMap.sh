@@ -280,4 +280,4 @@ done <$tempDir\/master
 rm $lsInfo
 rm -rf $tempDir
 
-cd $currDir
+cd $currDir	#return back to the directory we started at
