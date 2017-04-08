@@ -1,5 +1,5 @@
-#GitMap 
-##Description
+# GitMap 
+## Description
 GitMap creates a map of a git repository, showing all the commits of each branch. 
 The map will be saved in a plain text file with the name of **My_Treasure_Map**. 
 
@@ -46,11 +46,11 @@ the greater the number of commits and branches, the longer it will take for the 
 A git repository with only the master branch and 100 commits will take about 40 seconds to run.
 The resulting file will be stored in the directory that was passed into the command.
 
-##Warning
+## Warning
 Before running this program on a git repository, commit all changes to the repository. 
 All uncommited changes will be reverted to the last commit.
 
-##Downloading and Running
+## Downloading and Running
 To download, run the command:    
 ```
 $ git clone https://github.com/ykamo001/GitMap  
@@ -62,7 +62,7 @@ $ . PathToGitMap/src/GitMap.sh
 ```
 The script will run on the current directory.
 
-#Error Messages
+# Error Messages
 * If PathToYourGitRepo is not passed in when running the script,   
 `Path was not specified. Script will execute in current directory` 
 * If `PathToGitMap/src/GitMap.sh PathToYourGitRepo` is passed in, 
@@ -78,10 +78,10 @@ bash: [: 0: unary operator expected
 bash: ./RandomTempFileName/master: Nosuch file or directory
 ```
 
-##Examples
+## Examples
 You can see an example of the script run on [@ykamo001's](https://github.com/ykamo001/rshell) rshell repository in GitMap/example.
 
-##Bugs and Issues
+## Bugs and Issues
 * If the folder isn't a git repository, our script will still try to run and an empty file will be created
 * When run, the screen will output 
 `Switched to branch \'exampleBranch\'` 
